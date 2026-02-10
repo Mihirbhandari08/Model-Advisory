@@ -75,14 +75,14 @@ Respond with valid JSON only. Do not include markdown code fences around the JSO
 
         try:
             if self.model:
-                # Log the LLM call
+                # Log the LLM call start
                 logger.log_llm_call(
                     model=GEMINI_MODEL,
+                    operation="generate_system_design_answer",
                     prompt_tokens=len(full_prompt.split()),
                     completion_tokens=0,
                     duration_ms=0,
-                    success=True,
-                    context={"agent": "system_design_expert", "question": question[:100]}
+                    success=True
                 )
                 
                 response = self.model.generate_content(full_prompt)
