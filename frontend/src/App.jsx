@@ -4,9 +4,10 @@ import QueryInput from './components/QueryInput'
 import ModelRecommendation from './components/ModelRecommendation'
 import LoadingState from './components/LoadingState'
 import MetricsDashboard from './components/MetricsDashboard'
+import EvalDashboard from './components/EvalDashboard'
 import { loggedFetch, logger } from './utils/logger'
 
-const API_BASE = 'http://localhost:8000'
+const API_BASE = 'http://65.0.103.28:5000'
 
 function App() {
   const [query, setQuery] = useState('')
@@ -15,6 +16,7 @@ function App() {
   const [error, setError] = useState(null)
   const [sessionId, setSessionId] = useState(null)
   const [showDashboard, setShowDashboard] = useState(false)
+  const [showEvalDashboard, setShowEvalDashboard] = useState(false)
 
   const handleSubmit = useCallback(async (inputQuery) => {
     if (!inputQuery.trim()) return
@@ -144,16 +146,28 @@ function App() {
       {/* Footer */}
       <footer className="max-w-5xl mx-auto mt-16 text-center text-slate-500 text-sm pb-8">
         <p className="mb-4">Powered by Gemini 2.5 Flash &amp; Hugging Face</p>
-        <button
-          onClick={() => setShowDashboard(true)}
-          className="text-xs px-3 py-1 bg-slate-800/50 hover:bg-slate-700/50 rounded-full border border-slate-700 hover:border-slate-600 transition-colors"
-        >
-          View System Diagnostics
-        </button>
+        <div className="flex items-center justify-center gap-3">
+          <button
+            onClick={() => setShowDashboard(true)}
+            className="text-xs px-3 py-1 bg-slate-800/50 hover:bg-slate-700/50 rounded-full border border-slate-700 hover:border-slate-600 transition-colors"
+          >
+            View System Diagnostics
+          </button>
+          <button
+            onClick={() => setShowEvalDashboard(true)}
+            className="text-xs px-3 py-1 bg-gradient-to-r from-primary-500/10 to-accent-500/10 hover:from-primary-500/20 hover:to-accent-500/20 rounded-full border border-primary-500/30 hover:border-primary-500/50 text-primary-400 hover:text-primary-300 transition-all"
+          >
+            📈 Run Evals
+          </button>
+        </div>
       </footer>
 
       {showDashboard && (
         <MetricsDashboard onClose={() => setShowDashboard(false)} />
+      )}
+
+      {showEvalDashboard && (
+        <EvalDashboard onClose={() => setShowEvalDashboard(false)} />
       )}
     </div>
   )

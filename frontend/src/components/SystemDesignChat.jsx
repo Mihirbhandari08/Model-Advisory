@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import CodeBlock from './CodeBlock'
 
-const API_BASE = 'http://localhost:8000'
+const API_BASE = 'http://65.0.103.28:5000'
 
 /**
  * SystemDesignChat - Chat interface for the ML System Design Expert
@@ -247,10 +247,10 @@ function MessageBubble({ message }) {
             <div className={`flex-1 max-w-[85%] space-y-3 ${isUser ? 'text-right' : ''}`}>
                 {/* Main Text */}
                 <div className={`inline-block px-4 py-3 rounded-xl ${isUser
-                        ? 'bg-blue-500/20 text-blue-100'
-                        : message.isError
-                            ? 'bg-red-500/10 border border-red-500/30 text-red-300'
-                            : 'bg-slate-800/50 text-slate-200'
+                    ? 'bg-blue-500/20 text-blue-100'
+                    : message.isError
+                        ? 'bg-red-500/10 border border-red-500/30 text-red-300'
+                        : 'bg-slate-800/50 text-slate-200'
                     }`}>
                     <p className="text-sm whitespace-pre-wrap">{message.content}</p>
                 </div>

@@ -15,7 +15,7 @@ function MetricsDashboard({ onClose }) {
             // Fetch backend logs
             let backendLogs = [];
             try {
-                const res = await fetch('http://localhost:8000/api/logs?count=100');
+                const res = await fetch('http://65.0.103.28:5000/api/logs?count=100');
                 if (res.ok) {
                     const data = await res.json();
                     backendLogs = data.logs.map(log => ({
