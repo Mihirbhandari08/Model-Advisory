@@ -1,23 +1,35 @@
-# Use an official lightweight Python image.
-# https://hub.docker.com/_/python
-FROM python:3.9-slim
+# ─── Stage 1: Builder ───────────────────────────────────────────────────────
+FROM python:3.9-slim AS builder
 
-# Set environment variables
-ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONUNBUFFERED=1
-
-# Set work directory
 WORKDIR /app
 
-# Install dependencies
+# Install build dependencies only in this stage
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    gcc \
+    && rm -rf /var/lib/apt/lists/*
+
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy project
-COPY . .
+# Install into a local prefix so we can copy cleanly
+RUN pip install --no-cache-dir --prefix=/install -r requirements.txt
 
-# Expose the port the app runs on
+
+# ─── Stage 2: Runtime ───────────────────────────────────────────────────────
+FROM python:3.9-slim AS runtime
+
+# Security: run as non-root user
+RUN useradd --create-home appuser
+
+WORKDIR /app
+
+# Pull only the installed packages from builder — no gcc, no cache
+COPY --from=builder /install /usr/local
+
+# Copy application source
+COPY --chown=appuser:appuser . .
+
+USER appuser
+
 EXPOSE 8000
 
-# Run the application
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
