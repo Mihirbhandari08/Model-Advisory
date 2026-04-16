@@ -121,9 +121,10 @@ function App() {
             <div className="grid gap-3 sm:grid-cols-2">
               {[
                 "I need a model around multilingual chatbot",
-                "Looking for something that runs on 4GB RAM",
+                "Looking for something that runs under 4GB RAM",
                 "Need to embed 10M legal docs — what's cheapest?",
-                "Building a memory for my AI agent"
+                "Building a memory for my AI agent",
+                "Which model is best for Embeddings"
               ].map((example, i) => (
                 <button
                   key={i}
