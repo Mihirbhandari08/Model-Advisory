@@ -247,7 +247,7 @@ async def ask_system_design_expert(query: SystemDesignQuery):
     Ask the ML system design expert a question.
     
     Requires an active session with a model recommendation.
-    Examples: "How to deploy on Modal?", "Best vector DB for my use case?"
+    Examples: "How to deploy on Modal or other cloud platforms?", "Best vector DB for my use case?"
     """
     try:
         session = sessions.get(query.session_id)
