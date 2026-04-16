@@ -120,7 +120,7 @@ function App() {
             <h3 className="text-lg font-semibold text-slate-200 mb-4">💡 Try these example queries:</h3>
             <div className="grid gap-3 sm:grid-cols-2">
               {[
-                "I need a model for a multilingual chatbot",
+                "I need a model around multilingual chatbot",
                 "Looking for something that runs on 4GB RAM",
                 "Need to embed 10M legal docs — what's cheapest?",
                 "Building a memory for my AI agent"
